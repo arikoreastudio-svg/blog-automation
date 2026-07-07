@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>테스트 페이지</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+      color: #1a1a1a;
+      padding: 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 48px 40px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      max-width: 460px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #fff1e8;
+      color: #ff6b1a;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .check {
+      margin-top: 32px;
+      padding-top: 28px;
+      border-top: 1px solid #eee;
+      font-size: 14px;
+      color: #999;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">● 연결 테스트</span>
+    <h1>Claude Code 연결 성공!</h1>
+    <p>이 페이지가 보인다면 준비가 잘 된 거예요.</p>
+    <p>이제 Claude Code로 무엇이든 만들 수 있어요.</p>
+    <div class="check">
+      <span class="dot"></span> index.html 파일이 정상적으로 로드되었습니다
+    </div>
+  </div>
+</body>
+</html>
