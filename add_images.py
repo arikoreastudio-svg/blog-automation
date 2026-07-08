@@ -18,6 +18,7 @@ import os
 import re
 import sys
 import time
+import argparse
 
 try:
     import requests
@@ -37,8 +38,7 @@ load_dotenv()
 
 ACCESS_KEY = os.getenv("UNSPLASH_ACCESS_KEY")
 
-SOURCE_FILE = "article.md"
-OUTPUT_FILE = "article_with_images.md"
+DEFAULT_SOURCE_FILE = "article.md"
 APP_NAME = "blog-automation"  # Unsplash 링크의 UTM 출처 표기용
 
 REQUEST_TIMEOUT = 15
@@ -85,26 +85,75 @@ KEYWORD_MAP = {
     "타이핑": "typing",
     "글쓰기": "writing",
     "사진": "photo",
+    # 여행/공항 관련 (한국 여행 블로그용)
+    "인천공항": "incheon airport",
+    "공항철도": "airport train",
+    "공항": "airport",
+    "입국장": "airport arrival hall",
+    "캐리어": "suitcase luggage",
+    "여행객": "traveler",
+    "지하철": "subway train",
+    "열차": "train",
+    "기차": "train",
+    "좌석": "train seat",
+    "거치대": "luggage rack",
+    "리무진버스": "airport shuttle bus",
+    "버스": "bus",
+    "승차장": "bus station",
+    "기다리는": "waiting",
+    "사람들": "people",
+    "택시": "taxi",
+    "서울": "seoul city",
+    "시내": "city street",
+    "지도": "map",
+    "경로": "route",
+    "주황색": "orange",
+    "달리는": "driving",
+    "뒷모습": "back view walking",
 }
 
 FALLBACK_QUERY = "writing desk technology"
 
 
 def build_query(description):
-    """한국어 설명에서 키워드를 뽑아 영어 검색어를 만든다."""
-    hits = []
+    """한국어 설명에서 키워드를 뽑아 영어 검색어를 만든다.
+    "공항철도"(4글자)와 "공항"(2글자)처럼 한 키워드가 다른 키워드의 부분
+    문자열이면, 더 긴(더 구체적인) 키워드만 채택해서 "airport train airport"처럼
+    같은 단어가 중복/변주되어 검색어가 지나치게 좁아지는 걸 막는다."""
+    candidates = []
     for kr, en in KEYWORD_MAP.items():
         idx = description.find(kr)
         if idx != -1:
-            hits.append((idx, en))
-    if not hits:
+            candidates.append((idx, idx + len(kr), en, len(kr)))
+    if not candidates:
         return FALLBACK_QUERY
-    hits.sort(key=lambda x: x[0])
-    seen = []
-    for _, en in hits:
-        if en not in seen:
-            seen.append(en)
-    return " ".join(seen[:5])
+
+    candidates.sort(key=lambda x: (-x[3], x[0]))  # 긴 키워드부터 자리를 차지
+    covered = []
+    accepted = []
+    for start, end, en, _ in candidates:
+        if any(start < c_end and end > c_start for c_start, c_end in covered):
+            continue
+        covered.append((start, end))
+        accepted.append((start, en))
+
+    accepted.sort(key=lambda x: x[0])
+
+    # 구(phrase) 단위가 아니라 단어 단위로 중복을 제거한다.
+    # (예: "airport train" + "train seat"처럼 서로 다른 구라도 "train"이
+    #  겹치면 Unsplash 검색 결과가 0건이 되는 경우가 있어, 같은 단어의
+    #  반복을 막아 검색어를 더 짧고 명확하게 만든다)
+    words = []
+    lowered = []
+    for _, phrase in accepted:
+        for w in phrase.split():
+            if w.lower() not in lowered:
+                lowered.append(w.lower())
+                words.append(w)
+
+    if not words:
+        return FALLBACK_QUERY
+    return " ".join(words[:6])
 
 
 def search_unsplash(query, per_page=5):
@@ -159,26 +208,40 @@ def print_env_setup_guide():
 
 
 def main():
+    parser = argparse.ArgumentParser(description="마크다운의 [이미지: 설명] 자리를 Unsplash 사진으로 교체")
+    parser.add_argument("source", nargs="?", default=DEFAULT_SOURCE_FILE,
+                         help=f"입력 마크다운 파일 (기본값: {DEFAULT_SOURCE_FILE})")
+    parser.add_argument("-o", "--output", default=None,
+                         help="출력 파일명 (기본값: '<입력파일명>_with_images.md')")
+    args = parser.parse_args()
+
+    source_file = args.source
+    if args.output:
+        output_file = args.output
+    else:
+        base, ext = os.path.splitext(source_file)
+        output_file = f"{base}_with_images{ext}"
+
     if not ACCESS_KEY:
         print("[오류] UNSPLASH_ACCESS_KEY를 찾을 수 없습니다. .env 파일이 없거나 키가 비어 있습니다.")
         print_env_setup_guide()
         sys.exit(1)
 
-    if not os.path.exists(SOURCE_FILE):
-        print(f"[오류] '{SOURCE_FILE}' 파일을 찾을 수 없습니다. 같은 폴더에서 실행해 주세요.")
+    if not os.path.exists(source_file):
+        print(f"[오류] '{source_file}' 파일을 찾을 수 없습니다. 같은 폴더에서 실행해 주세요.")
         sys.exit(1)
 
-    with open(SOURCE_FILE, encoding="utf-8") as f:
+    with open(source_file, encoding="utf-8") as f:
         content = f.read()
 
     pattern = re.compile(r"\[이미지:\s*(.+?)\]")
     matches = list(pattern.finditer(content))
 
     if not matches:
-        print(f"[안내] '{SOURCE_FILE}'에서 [이미지: 설명] 형태의 자리를 찾지 못했습니다.")
+        print(f"[안내] '{source_file}'에서 [이미지: 설명] 형태의 자리를 찾지 못했습니다.")
         sys.exit(0)
 
-    print(f"'{SOURCE_FILE}'에서 이미지 자리 {len(matches)}개를 찾았습니다. Unsplash 검색을 시작합니다.\n")
+    print(f"'{source_file}'에서 이미지 자리 {len(matches)}개를 찾았습니다. Unsplash 검색을 시작합니다.\n")
 
     counter = {"n": 0}
     unresolved = []
@@ -224,10 +287,10 @@ def main():
 
     new_content = pattern.sub(replace, content)
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         f.write(new_content)
 
-    print(f"\n완료: '{OUTPUT_FILE}' 파일로 저장했습니다. (원본 '{SOURCE_FILE}'은 그대로입니다)")
+    print(f"\n완료: '{output_file}' 파일로 저장했습니다. (원본 '{source_file}'은 그대로입니다)")
 
     if unresolved:
         print(f"\n[안내] {len(unresolved)}개 자리는 이미지를 찾지 못해 원래의 [이미지: 설명] 표시가 그대로 남아 있습니다:")

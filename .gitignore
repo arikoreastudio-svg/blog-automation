@@ -2,5 +2,7 @@ venv/
 __pycache__/
 *.pyc
 topics.json
+korea_topics.json
+seoul_topics.json
 .env
 token.json
