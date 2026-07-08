@@ -16,6 +16,7 @@ Blogger API v3로 내 블로그에 '임시저장(draft)' 상태로 올린다.
 import os
 import re
 import sys
+import argparse
 
 try:
     import markdown as md
@@ -52,7 +53,7 @@ except ImportError:
 
 load_dotenv()
 
-SOURCE_FILE = "article_with_images.md"
+DEFAULT_SOURCE_FILE = "article_with_images.md"
 TOKEN_FILE = "token.json"
 SCOPES = ["https://www.googleapis.com/auth/blogger"]
 
@@ -65,11 +66,11 @@ BLOG_ID = os.getenv("BLOGGER_BLOG_ID")
 # 1. 마크다운 -> 블로그용 HTML 변환
 # ---------------------------------------------------------------------------
 
-def split_title_and_body(content):
+def split_title_and_body(content, source_file):
     """첫 번째 H1을 글 제목으로 분리하고, 나머지를 본문 마크다운으로 반환한다."""
     match = re.search(r"^#\s+(.+?)\s*$", content, re.MULTILINE)
     if not match:
-        print(f"[오류] '{SOURCE_FILE}'에서 H1(# 제목)을 찾지 못했습니다.")
+        print(f"[오류] '{source_file}'에서 H1(# 제목)을 찾지 못했습니다.")
         sys.exit(1)
     title = match.group(1).strip()
     body = content[:match.start()] + content[match.end():]
@@ -233,6 +234,12 @@ def publish_draft(title, html_content, creds):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="완성된 마크다운 글을 Blogger에 임시저장으로 발행")
+    parser.add_argument("source", nargs="?", default=DEFAULT_SOURCE_FILE,
+                         help=f"발행할 마크다운 파일 (기본값: {DEFAULT_SOURCE_FILE})")
+    args = parser.parse_args()
+    source_file = args.source
+
     missing = [name for name, val in [
         ("BLOGGER_CLIENT_ID", CLIENT_ID),
         ("BLOGGER_CLIENT_SECRET", CLIENT_SECRET),
@@ -243,14 +250,14 @@ def main():
         print_env_setup_guide()
         sys.exit(1)
 
-    if not os.path.exists(SOURCE_FILE):
-        print(f"[오류] '{SOURCE_FILE}' 파일을 찾을 수 없습니다. 같은 폴더에서 실행해 주세요.")
+    if not os.path.exists(source_file):
+        print(f"[오류] '{source_file}' 파일을 찾을 수 없습니다. 같은 폴더에서 실행해 주세요.")
         sys.exit(1)
 
-    with open(SOURCE_FILE, encoding="utf-8") as f:
+    with open(source_file, encoding="utf-8") as f:
         content = f.read()
 
-    title, body_md = split_title_and_body(content)
+    title, body_md = split_title_and_body(content, source_file)
     print(f"글 제목: {title}")
 
     html_content = markdown_to_blog_html(body_md)

@@ -165,11 +165,17 @@ def search_unsplash(query, per_page=5):
     return resp.json().get("results", [])
 
 
-def pick_best_photo(results):
-    """검색 결과 중 좋아요 수가 가장 많은 사진을 '가장 잘 어울리는 사진'으로 선택한다."""
+def pick_best_photo(results, exclude_ids=None):
+    """검색 결과 중 좋아요 수가 가장 많은 사진을 '가장 잘 어울리는 사진'으로 선택한다.
+    같은 글 안에서 이미 쓴 사진(exclude_ids)은 제외해서, 서로 다른 자리인데
+    같은 사진이 중복으로 뽑히는 걸 막는다. 제외하고 나면 남는 후보가 없을 때만
+    예외적으로 이미 쓴 사진이라도 다시 허용한다."""
     if not results:
         return None
-    return max(results, key=lambda p: p.get("likes", 0))
+    exclude_ids = exclude_ids or set()
+    candidates = [p for p in results if p.get("id") not in exclude_ids]
+    pool = candidates if candidates else results
+    return max(pool, key=lambda p: p.get("likes", 0))
 
 
 def trigger_download_event(photo):
@@ -245,6 +251,7 @@ def main():
 
     counter = {"n": 0}
     unresolved = []
+    used_photo_ids = set()
 
     def replace(match):
         counter["n"] += 1
@@ -277,7 +284,8 @@ def main():
             unresolved.append(description)
             return match.group(0)
 
-        photo = pick_best_photo(results)
+        photo = pick_best_photo(results, exclude_ids=used_photo_ids)
+        used_photo_ids.add(photo.get("id"))
         trigger_download_event(photo)
         print(f"    선택된 사진: {photo['urls']['regular']}")
         print(f"    촬영자: {photo['user']['name']}")
