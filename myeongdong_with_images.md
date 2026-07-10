@@ -44,6 +44,10 @@ Most stalls are cash-friendly and increasingly accept card payment too, but it's
 
 *Photo by [Shah](https://unsplash.com/@asoshiation?utm_source=blog-automation&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=blog-automation&utm_medium=referral)*
 
+![Myeongdong street at night with snow falling and brightly lit storefronts](https://images.unsplash.com/photo-1768711699153-bd696267e52f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ0MTh8MHwxfHNlYXJjaHw1fHxNeWVvbmdkb25nJTIwbmlnaHR8ZW58MHwwfHx8MTc4MzY0NTQwNXww&ixlib=rb-4.1.0&q=80&w=1080)
+
+*Photo by [noo jang](https://unsplash.com/@hywoo06?utm_source=blog-automation&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=blog-automation&utm_medium=referral)*
+
 ## Nearby Sights: Myeongdong Cathedral and More
 
 Right at the edge of the shopping streets sits **Myeongdong Cathedral**, one of Seoul's most recognizable landmarks. Built in Gothic style and completed in 1898, it was the first brick cathedral built in Korea and remains an important site in Korean Catholic history, including its role as a gathering place during pro-democracy protests in the 1970s and 80s.

@@ -38,6 +38,8 @@ Most stalls are cash-friendly and increasingly accept card payment too, but it's
 
 [이미지: 명동 길거리 음식 노점에서 떡볶이와 호떡을 파는 모습]
 
+[이미지: 눈이 내리는 명동 밤거리, 불빛을 밝힌 상점들 사이로 걷는 사람들]
+
 ## Nearby Sights: Myeongdong Cathedral and More
 
 Right at the edge of the shopping streets sits **Myeongdong Cathedral**, one of Seoul's most recognizable landmarks. Built in Gothic style and completed in 1898, it was the first brick cathedral built in Korea and remains an important site in Korean Catholic history, including its role as a gathering place during pro-democracy protests in the 1970s and 80s.
