@@ -216,20 +216,38 @@ def get_credentials():
 # 3. Blogger API 발행
 # ---------------------------------------------------------------------------
 
+def _handle_http_error(e):
+    print(f"\n[오류] Blogger API 요청이 실패했습니다 (HTTP {e.resp.status}).")
+    if e.resp.status == 404:
+        print("  블로그 ID 또는 글 ID가 잘못됐을 수 있습니다. .env의 BLOGGER_BLOG_ID나 --post-id를 다시 확인해 주세요.")
+    elif e.resp.status == 403:
+        print("  이 계정이 해당 블로그의 관리자가 아니거나, Blogger API 사용 설정이 안 됐을 수 있습니다.")
+    else:
+        print(f"  상세: {e}")
+    sys.exit(1)
+
+
 def publish_draft(title, html_content, creds):
+    """새 임시저장(draft) 글을 만든다."""
     service = build("blogger", "v3", credentials=creds)
     post_body = {"title": title, "content": html_content}
     try:
         result = service.posts().insert(blogId=BLOG_ID, body=post_body, isDraft=True).execute()
     except HttpError as e:
-        print(f"\n[오류] Blogger API 요청이 실패했습니다 (HTTP {e.resp.status}).")
-        if e.resp.status == 404:
-            print("  블로그 ID가 잘못됐을 수 있습니다. .env의 BLOGGER_BLOG_ID를 다시 확인해 주세요.")
-        elif e.resp.status == 403:
-            print("  이 계정이 해당 블로그의 관리자가 아니거나, Blogger API 사용 설정이 안 됐을 수 있습니다.")
-        else:
-            print(f"  상세: {e}")
-        sys.exit(1)
+        _handle_http_error(e)
+    return result
+
+
+def update_draft(post_id, title, html_content, creds):
+    """기존 글(주로 임시저장 글)을 같은 postId로 덮어써서, 새 draft가 따로
+    생기지 않고 하나의 글만 계속 갱신되게 한다. publish 파라미터를 주지
+    않으면 기존 상태(임시저장이면 임시저장)가 그대로 유지된다."""
+    service = build("blogger", "v3", credentials=creds)
+    post_body = {"title": title, "content": html_content}
+    try:
+        result = service.posts().update(blogId=BLOG_ID, postId=post_id, body=post_body).execute()
+    except HttpError as e:
+        _handle_http_error(e)
     return result
 
 
@@ -237,6 +255,9 @@ def main():
     parser = argparse.ArgumentParser(description="완성된 마크다운 글을 Blogger에 임시저장으로 발행")
     parser.add_argument("source", nargs="?", default=DEFAULT_SOURCE_FILE,
                          help=f"발행할 마크다운 파일 (기본값: {DEFAULT_SOURCE_FILE})")
+    parser.add_argument("--post-id", default=None,
+                         help="이 글 ID로 기존 글(주로 임시저장 글)을 덮어쓴다. "
+                              "지정하지 않으면 새 임시저장 글을 만든다.")
     args = parser.parse_args()
     source_file = args.source
 
@@ -270,10 +291,15 @@ def main():
         print("Client ID/Secret이 올바른지, OAuth 동의 화면에 테스트 사용자로 등록됐는지 확인해 주세요.")
         sys.exit(1)
 
-    print("\nBlogger에 임시저장(draft) 글을 생성합니다...")
-    result = publish_draft(title, html_content, creds)
+    if args.post_id:
+        print(f"\nBlogger의 기존 글(ID: {args.post_id})을 새 내용으로 덮어씁니다...")
+        result = update_draft(args.post_id, title, html_content, creds)
+        print("\n완료! 기존 글을 업데이트했습니다. (새 draft가 따로 생기지 않았습니다)")
+    else:
+        print("\nBlogger에 임시저장(draft) 글을 생성합니다...")
+        result = publish_draft(title, html_content, creds)
+        print("\n완료! 임시저장 글이 생성됐습니다.")
 
-    print("\n완료! 임시저장 글이 생성됐습니다.")
     print(f"  글 ID: {result.get('id')}")
     print(f"  링크: {result.get('url', '(초안은 목록에서 확인하세요)')}")
     print("  Blogger 관리자 페이지의 '임시글' 목록에서 확인 후, 직접 '게시' 버튼을 눌러주세요.")

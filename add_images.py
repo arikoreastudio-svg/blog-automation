@@ -110,6 +110,31 @@ KEYWORD_MAP = {
     "주황색": "orange",
     "달리는": "driving",
     "뒷모습": "back view walking",
+    # 명동/쇼핑/시장 관련 (한국 여행 블로그용)
+    "명동": "myeongdong seoul",
+    "로드샵": "beauty store shop",
+    "화장품": "cosmetics",
+    "매장": "store interior",
+    "테스트": "product testing",
+    "길거리": "street",
+    "음식": "food",
+    "노점": "food stall",
+    "떡볶이": "tteokbokki korean street food",
+    "호떡": "korean pancake",
+    "성당": "cathedral",
+    "고딕": "gothic architecture",
+    "외관": "building exterior",
+    "간판": "shop signage",
+    "오가는": "walking crowd",
+    "표지판": "sign",
+    "출구": "exit sign",
+    "광장시장": "gwangjang market",
+    "전통시장": "traditional market korea",
+    "먹거리": "street food market",
+    "빈대떡": "korean pancake food",
+    "마약김밥": "korean rice roll food",
+    "상인": "market vendor",
+    "쇼핑": "shopping",
 }
 
 FALLBACK_QUERY = "writing desk technology"
@@ -154,6 +179,23 @@ def build_query(description):
     if not words:
         return FALLBACK_QUERY
     return " ".join(words[:6])
+
+
+def search_unsplash_with_fallback(query, per_page=5):
+    """검색어가 너무 구체적이면 결과가 0건일 수 있어서, 단어 수를 점점 줄여가며
+    재시도한다 (예: 6단어 -> 4단어 -> 2단어 -> 1단어). HTTP 오류(인증/한도 초과 등)는
+    재시도해도 소용없으므로 즉시 그대로 올려보낸다."""
+    words = query.split()
+    tried = []
+    for n in sorted({len(words), 4, 2, 1}, reverse=True):
+        if n > len(words) or n in tried:
+            continue
+        tried.append(n)
+        attempt_query = " ".join(words[:n])
+        results = search_unsplash(attempt_query, per_page=per_page)
+        if results:
+            return results, attempt_query
+    return [], query
 
 
 def search_unsplash(query, per_page=5):
@@ -263,7 +305,9 @@ def main():
         print(f"    검색어(영문 변환): {query}")
 
         try:
-            results = search_unsplash(query)
+            results, used_query = search_unsplash_with_fallback(query)
+            if results and used_query != query:
+                print(f"    [안내] 원래 검색어로 결과가 없어 '{used_query}'로 줄여서 재검색했습니다.")
         except requests.exceptions.HTTPError as e:
             status = e.response.status_code if e.response is not None else "?"
             if status == 401:
