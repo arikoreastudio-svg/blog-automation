@@ -240,12 +240,17 @@ def publish_draft(title, html_content, creds):
 
 def update_draft(post_id, title, html_content, creds):
     """기존 글(주로 임시저장 글)을 같은 postId로 덮어써서, 새 draft가 따로
-    생기지 않고 하나의 글만 계속 갱신되게 한다. publish 파라미터를 주지
-    않으면 기존 상태(임시저장이면 임시저장)가 그대로 유지된다."""
+    생기지 않고 하나의 글만 계속 갱신되게 한다.
+
+    주의: publish 파라미터를 생략하면 Blogger API가 글을 자동으로 공개(LIVE)
+    처리하는 것을 실제로 확인했다 (문서상 기본값과 다르게 동작). 그래서
+    임시저장 상태를 유지하려면 반드시 publish=False를 명시해야 한다."""
     service = build("blogger", "v3", credentials=creds)
     post_body = {"title": title, "content": html_content}
     try:
-        result = service.posts().update(blogId=BLOG_ID, postId=post_id, body=post_body).execute()
+        result = service.posts().update(
+            blogId=BLOG_ID, postId=post_id, body=post_body, publish=False
+        ).execute()
     except HttpError as e:
         _handle_http_error(e)
     return result
