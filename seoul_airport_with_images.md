@@ -82,4 +82,6 @@ Whichever you choose, it helps to have your hotel address saved in Korean before
 
 *Photo by [hannah park](https://unsplash.com/@hannahkpark?utm_source=blog-automation&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=blog-automation&utm_medium=referral)*
 
+Once you've settled on how you're getting into the city, our [4-day Seoul itinerary](https://korea-travel-guide-kr.blogspot.com/2026/07/seoul-4-day-itinerary.html) shows exactly where this trip fits into a full first-time visit.
+
 *Fares, schedules, and routes can change. Check the official AREX (airportrailroad.com), Incheon Airport (airport.kr), and Seoul city transit sites for the latest information before you travel.*

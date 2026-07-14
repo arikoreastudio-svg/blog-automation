@@ -80,4 +80,6 @@ A natural route is to start with cafes and pop-ups around Seongsu Station, then 
 
 Seongsu works best for visitors who want to see a newer, faster-moving side of Seoul: converted-factory cafes, rotating fashion and K-pop pop-ups, independent concept shops, and dessert-forward food, all inside a neighborhood that still shows its industrial roots in the architecture. Pair it with Seoul Forest next door, and it's an easy half-day or full-day addition to a Seoul itinerary, especially if Myeongdong-style shopping isn't really what you're after.
 
+Not sure where Seongsu fits alongside everything else Seoul has to offer? Our [4-day Seoul itinerary](https://korea-travel-guide-kr.blogspot.com/2026/07/seoul-4-day-itinerary.html) maps out a full first-time visit, Seongsu included.
+
 *Store hours, specific cafes, and pop-up store listings change frequently. Check current listings on-site or through the Visit Seoul official site (english.visitseoul.net) before building a trip around any one place.*

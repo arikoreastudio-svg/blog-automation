@@ -111,4 +111,6 @@ Combining all three in one day makes for a route that moves from modern shopping
 
 Myeongdong works well as a first stop in Seoul because it's easy to reach, easy to navigate, and covers shopping, food, and sightseeing all in one walkable area. Come for the K-beauty road shops, stay for the street food, swing by Myeongdong Cathedral while you're there, and don't forget to ask about your tax refund before you leave the store. If you have extra time, Euljiro and Gwangjang Market are both an easy add-on from here.
 
+Looking to fit Myeongdong into a bigger trip? Our [4-day Seoul itinerary](https://korea-travel-guide-kr.blogspot.com/2026/07/seoul-4-day-itinerary.html) shows where it fits alongside Gwangjang Market and the rest of your first visit.
+
 *Opening hours, prices, and tax refund rules can change. Check the official Visit Seoul (english.visitseoul.net) and Visit Korea (english.visitkorea.or.kr) sites for the latest details before you go.*

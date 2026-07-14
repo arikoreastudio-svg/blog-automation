@@ -87,4 +87,6 @@ If you're planning to visit **Myeongdong** on the same trip, our [complete Myeon
 
 Gwangjang Market is worth the crowds and the slightly chaotic first impression. Come hungry, bring cash, expect to share a bench with strangers, and don't be shy about pointing at food you can't name. Visit in the mid-morning if you want it calmer, or just accept that it's always going to be busy and dive in anyway.
 
+Planning the rest of your trip? Our [4-day Seoul itinerary](https://korea-travel-guide-kr.blogspot.com/2026/07/seoul-4-day-itinerary.html) shows how Gwangjang Market pairs with Myeongdong and Euljiro on the same day.
+
 *Opening hours, prices, and exact subway exit details can change. Check current information on-site or through the Visit Seoul official site (english.visitseoul.net) before you go.*

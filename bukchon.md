@@ -89,4 +89,6 @@ Spring and autumn are the most popular seasons, both for comfortable walking wea
 
 Bukchon is one of the most visually distinctive neighborhoods in Seoul, and it's genuinely worth the walk, just remember it's someone's home, not a theme park. Stick to the 10 AM–5 PM window in the busiest streets, keep your voice down, don't peek into open gates, and you'll have a great visit without being part of the problem residents have dealt with. Pair it with a hanbok rental from Gyeongbokgung, and wind down afterward in Samcheong-dong or Insadong.
 
+For a full sense of how Bukchon fits into a first Seoul trip, our [4-day Seoul itinerary](https://korea-travel-guide-kr.blogspot.com/2026/07/seoul-4-day-itinerary.html) pairs it with Gyeongbokgung and hanbok on the same day.
+
 *Visiting-hour restrictions, fines, and zone boundaries have changed in recent years and may continue to change. Check posted signage in the neighborhood or the official Visit Seoul site (english.visitseoul.net) for the current rules before you go.*

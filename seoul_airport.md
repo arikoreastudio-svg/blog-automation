@@ -72,4 +72,6 @@ Whichever you choose, it helps to have your hotel address saved in Korean before
 
 [이미지: 서울 시내 지도 위에 인천공항에서 서울역까지 경로가 표시된 그래픽]
 
+Once you've settled on how you're getting into the city, our [4-day Seoul itinerary](https://korea-travel-guide-kr.blogspot.com/2026/07/seoul-4-day-itinerary.html) shows exactly where this trip fits into a full first-time visit.
+
 *Fares, schedules, and routes can change. Check the official AREX (airportrailroad.com), Incheon Airport (airport.kr), and Seoul city transit sites for the latest information before you travel.*

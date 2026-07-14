@@ -102,4 +102,6 @@ A simple route: hanbok rental and Gyeongbokgung in the morning, Bukchon in the e
 
 Gyeongbokgung is the palace to prioritize in Seoul, and pairing it with a hanbok rental is less a gimmick and more the intended experience, it even gets you free admission if the outfit qualifies. Time your visit around the Royal Guard Changing Ceremony, prioritize Geunjeongjeon and Gyeonghoeru Pavilion if you're short on time, and use the extra energy to walk over to Bukchon or Insadong afterward.
 
+If you're mapping out more than just this one stop, our [4-day Seoul itinerary](https://korea-travel-guide-kr.blogspot.com/2026/07/seoul-4-day-itinerary.html) shows how Gyeongbokgung and Bukchon fit together on the same day.
+
 *Admission fees, hours, ceremony times, and hanbok rental prices can change. Check the official Royal Palaces and Tombs Center site (royal.khs.go.kr) and Visit Seoul (english.visitseoul.net) for the latest details before you go.*

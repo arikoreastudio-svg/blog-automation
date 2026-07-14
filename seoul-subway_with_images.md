@@ -92,4 +92,6 @@ Once you've got a T-money card in your pocket and Naver Map or KakaoMap installe
 
 Get a T-money card at any convenience store near a station, tap in and out every ride, use Naver Map or KakaoMap instead of Google Maps, and keep an eye on the clock if you're out past midnight. Everything else, the colors, the numbers, the announcements, is built to be figured out on the fly.
 
+For a sense of how much subway riding you'll actually be doing on a typical trip, check out our [4-day Seoul itinerary](https://korea-travel-guide-kr.blogspot.com/2026/07/seoul-4-day-itinerary.html), which maps out where these skills get used day to day.
+
 *Fares, schedules, and payment options in Seoul change fairly often. Check the official Visit Seoul site (english.visitseoul.net) or the Seoul Metro site (seoulmetro.co.kr) for the latest details before you rely on exact numbers.*
