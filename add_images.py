@@ -197,6 +197,32 @@ KEYWORD_MAP = {
     "산책": "walking",
     "종로5가역": "jongno subway station seoul",
     "종로": "jongno seoul",
+    # 지하철 이용법 관련 (한국 여행 블로그용)
+    "승강장": "subway platform seoul",
+    "편의점": "convenience store korea",
+    "교통카드": "t-money transit card korea",
+    "개찰구": "subway turnstile gate seoul",
+    "태그": "tapping card reader",
+    "올빼미버스": "night bus seoul korea",
+    "심야": "night time city",
+    "정류장": "bus stop korea",
+    "환승": "transfer",
+    "노약자석": "priority seat subway",
+    "임산부": "pregnant priority seat",
+    "배려석": "priority seat train",
+    # 북촌한옥마을 관련 (한국 여행 블로그용)
+    "안국역": "anguk station seoul",
+    "삼청동": "samcheong-dong seoul",
+    "카페거리": "cafe street korea",
+    "인사동": "insadong seoul",
+    "전망": "viewpoint hanok",
+    "언덕": "hillside alley",
+    "기와": "tiled roof korea",
+    "처마선": "roofline hanok",
+    "대문": "traditional gate hanok",
+    "한옥카페": "hanok cafe korea",
+    "전통가옥": "traditional house korea",
+    "고즈넉한": "quiet traditional",
 }
 
 FALLBACK_QUERY = "writing desk technology"
