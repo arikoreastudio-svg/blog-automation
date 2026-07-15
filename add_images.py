@@ -223,6 +223,23 @@ KEYWORD_MAP = {
     "한옥카페": "hanok cafe korea",
     "전통가옥": "traditional house korea",
     "고즈넉한": "quiet traditional",
+    # 홍대 관련 (한국 여행 블로그용)
+    "홍대": "hongdae seoul",
+    "홍대입구역": "hongik university station seoul",
+    "버스킹": "street busking performance",
+    "거리공연": "street performance korea",
+    "걷고싶은거리": "hongdae street korea",
+    "인디음악": "indie music korea",
+    "라이브클럽": "live music club korea",
+    "편집숍": "boutique shop korea",
+    "프리마켓": "flea market korea",
+    "예술시장": "art market korea",
+    "벽화": "mural street art",
+    "놀이터": "hongdae playground park",
+    "연남동": "yeonnam-dong seoul",
+    "상수동": "sangsu-dong seoul",
+    "합정": "hapjeong seoul",
+    "테마카페": "themed cafe korea",
 }
 
 FALLBACK_QUERY = "writing desk technology"
